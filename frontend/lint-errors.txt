@@ -1,0 +1,14 @@
+﻿
+> frontend@0.0.0 lint
+> eslint .
+
+
+C:\Users\Yash\Desktop\hackthon frontend\frontend\src\components\Hero.jsx
+  1:17  error  'useState' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u    no-unused-vars
+
+C:\Users\Yash\Desktop\hackthon frontend\frontend\src\components\SearchResults.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+Γ£û 3 problems (3 errors, 0 warnings)
+
