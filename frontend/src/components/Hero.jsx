@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Search, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SearchBar from './SearchBar';
+import LinkInput from './LinkInput';
 
-const Hero = ({ onSearch }) => {
+const Hero = ({ onSearch, onProcessLink }) => {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-4 relative overflow-hidden">
       {/* Background gradients */}
@@ -28,11 +29,17 @@ const Hero = ({ onSearch }) => {
         </h1>
         
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
-          Don't waste time scrubbing. Find exactly where concepts like algorithms, frameworks, or coding patterns are explained in long tutorials.
+          Don't waste time scrubbing. Paste a tutorial link or upload a file to find exactly where concepts are explained.
         </p>
 
-        <div className="pt-4 max-w-2xl mx-auto">
-           <SearchBar onSearch={onSearch} large={true} />
+        <div className="pt-4 max-w-2xl mx-auto space-y-4">
+           <LinkInput onProcess={onProcessLink} large={true} />
+           <div className="flex items-center gap-4 text-gray-500">
+             <div className="flex-1 h-px bg-gray-800"></div>
+             <span className="text-xs uppercase tracking-widest font-semibold">Or Search Existing</span>
+             <div className="flex-1 h-px bg-gray-800"></div>
+           </div>
+           <SearchBar onSearch={onSearch} large={false} />
         </div>
         
         <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mt-8 pt-8 text-sm text-gray-500">

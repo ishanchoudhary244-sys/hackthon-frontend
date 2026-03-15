@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+from dotenv import load_dotenv
 
-from .routes import upload, search, ask_ai
+load_dotenv()
+
+from .routes import upload, search, ask_ai, video_link
 
 app = FastAPI(title="DevTube AI API", description="Backend for processing and searching programming videos.")
 
@@ -22,6 +25,7 @@ os.makedirs("data", exist_ok=True)
 app.include_router(upload.router, tags=["Upload"])
 app.include_router(search.router, tags=["Search"])
 app.include_router(ask_ai.router, tags=["AI"])
+app.include_router(video_link.router, tags=["Link"])
 
 @app.get("/")
 def health_check():

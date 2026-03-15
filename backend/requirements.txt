@@ -1,8 +1,13 @@
 fastapi
 uvicorn
+python-multipart
 openai-whisper
 sentence-transformers
 faiss-cpu
+imageio-ffmpeg
+openai
+python-dotenv
 ffmpeg-python
+numpy
 pydantic
-python-multipart
+yt-dlp

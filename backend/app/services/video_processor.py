@@ -12,9 +12,17 @@ def process_video_pipeline(video_id: str, video_path: str):
         print(f"[{video_id}] Starting video processing pipeline.")
         audio_path = os.path.join(DATA_DIR, f"{video_id}.wav")
         
-        # 1. Extract audio
-        print(f"[{video_id}] Extracting audio...")
-        extract_audio(video_path, audio_path)
+        # 1. Extract audio (skip if already a WAV file)
+        if not video_path.endswith(".wav"):
+            print(f"[{video_id}] Extracting audio...")
+            extract_audio(video_path, audio_path)
+        else:
+            print(f"[{video_id}] Using provided WAV file directly.")
+            # Ensure audio_path matches video_path if it's already a WAV
+            # but usually they are both in 'data/' with the same video_id prefix
+            if video_path != audio_path:
+                import shutil
+                shutil.copy(video_path, audio_path)
         
         # 2. Transcribe
         print(f"[{video_id}] Transcribing audio with Whisper...")

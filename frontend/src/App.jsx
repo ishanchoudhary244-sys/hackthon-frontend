@@ -14,7 +14,7 @@ function App() {
   
   // Backend Integration State
   const [videoId, setVideoId] = useState(null);
-  const [videoUrl, setVideoUrl] = useState("https://www.youtube.com/watch?v=P3YxCRtAgUKM"); // Default demo
+  const [videoUrl, setVideoUrl] = useState("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // Valid demo URL
   const [isProcessing, setIsProcessing] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -39,6 +39,28 @@ function App() {
       setHasSearched(true);
     } catch (error) {
       console.error('Upload failed:', error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleProcessLink = async (url) => {
+    setIsProcessing(true);
+    setVideoUrl(url); // Set player URL to the provided link
+    
+    try {
+      const response = await fetch(`${API_BASE}/process-link`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      });
+      const data = await response.json();
+      setVideoId(data.video_id);
+      console.log('Video ID received from link:', data.video_id);
+      
+      setHasSearched(true);
+    } catch (error) {
+      console.error('Link processing failed:', error);
     } finally {
       setIsProcessing(false);
     }
@@ -92,7 +114,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar onUpload={handleUpload} />
+      <Navbar onUpload={handleUpload} onProcessLink={handleProcessLink} />
       
       {/* Show processing banner if needed */}
       {isProcessing && (
@@ -102,7 +124,7 @@ function App() {
       )}
       
       {!hasSearched ? (
-        <Hero onSearch={handleSearch} />
+        <Hero onSearch={handleSearch} onProcessLink={handleProcessLink} />
       ) : (
         <main className="flex-1 container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

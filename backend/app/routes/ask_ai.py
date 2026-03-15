@@ -23,8 +23,9 @@ async def ask_ai(request: AskAIRequest):
     
     # 4. Generate LLM Response using OpenRouter
     from openai import OpenAI
+    import os
     
-    key = "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"
+    key = os.getenv("OPENROUTER_API_KEY")
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
         api_key=key,
@@ -44,7 +45,7 @@ async def ask_ai(request: AskAIRequest):
     try:
         completion = client.chat.completions.create(
             extra_headers={},
-            model="google/gemini-2.5-flash-free",
+            model="google/gemini-2.0-flash-exp:free",
             messages=[
                 {"role": "user", "content": prompt}
             ]
